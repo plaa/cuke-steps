@@ -35,6 +35,13 @@ This will scan the provided directories for step definition files (*.rb) and out
 The tool supports having step definitions in multiple directories.  It will generate a separate section for each directory specified on the command line, and (if multiple directories are provided) a section containing all step definitions.
 
 
+TODO
+----
+
+*  Create a gem out of it
+*  Add options for defining a base URL prefix and postfix, and make the file names in the output link to a source repo or Jenkins workspace
+
+
 BSD License
 -----------
 
