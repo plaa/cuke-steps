@@ -1,14 +1,23 @@
 # Outputter that generates Confluence markup
 
+require 'cgi'
+require 'fileutils'
+
 class ConfluenceStepOutputter
   def initialize(file)
     @file = File.open(file, 'w')
     @previous_type = ""
   end
 
-  def close
+  def header
+    # No-op
+  end
+  def footer
     @file.puts %(<p>&nbsp;</p>)
     @file.puts %(<p><em>Documentation generated #{Time.now}</em></p>)
+  end
+
+  def close
     @file.close
   end
 
