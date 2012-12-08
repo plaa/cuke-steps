@@ -9,8 +9,9 @@ Currently the only output format supported is the format for a Confluence wiki. 
 
   [cpp]: https://wiki.jenkins-ci.org/display/JENKINS/Confluence+Publisher+Plugin
 
-Usage:
+Usage
+-----
 
-  ruby cuke-steps.rb <directories...>
+  ruby cuke-steps.rb &lt;directories...&gt;
 
 This will scan the provided directories for step definition files (*.rb) and output a file named 'steps.cf'.
