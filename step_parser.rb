@@ -35,11 +35,11 @@ class StepParser
       case line
       when /^ *#/
         @comments << line
-      when /^(Given|When|Then|Before|After|AfterStep|Transform) /
+      when /^(Given|When|Then|Before|After|AfterStep|Transform)[ (]/
         unread(line)
         parse_step
         @comments = []
-      when /^\s+(Given|When|Then|Before|After|AfterStep|Transform) /
+      when /^\s+(Given|When|Then|Before|After|AfterStep|Transform)[ (]/
         puts "WARNING:  Indented step definition in file #{@current_file}:  #{line}"
         @comments = []
       else
@@ -67,7 +67,7 @@ class StepParser
   end
 
   def parse_step_name(line)
-    line = line.sub(/^(Given|When|Then|Transform) +\/\^?(.*?)\$?\/.*/, '\1 \2')
+    line = line.sub(/^(Given|When|Then|Transform) *\(?\/\^?(.*?)\$?\/.*/, '\1 \2')
     line = line.gsub('\ ', ' ')
     line
   end
