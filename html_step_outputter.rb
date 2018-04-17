@@ -21,11 +21,27 @@ class HtmlStepOutputter
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <title>Cucumber step documentation</title>
       <style>
+      html, body {
+        font-family: Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      h2 {
+        background-color: #eee;
+        border-bottom: 1px solid #ccf;
+        box-shadow: 0 5px 10px -5px rgba(0,0,0,0.2);
+        padding: 5px 1rem;
+        position: sticky;
+        top: -2px;
+      }
+      h3 {
+        padding: 0 1rem;
+      }
       .stepdefs {
         font-size: smaller;
       }
       .stepdefs li {
-        margin-bottom: 0.25em;
+        margin-bottom: 0.5em;
         list-style-type: none;
       }
       .stepdefs li:before {
@@ -37,12 +53,15 @@ class HtmlStepOutputter
         color: #111;
         text-decoration: none;
       }
+      .type {
+        color: #99e;
+      }
       .extrainfo {
         display: none;
         overflow: hidden; /* Fixes jumping issue in jQuery slideToggle() */
       }
       </style>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
       </head>
       <body>
     eos
@@ -64,14 +83,14 @@ class HtmlStepOutputter
   end
 
   def start_directory(dir)
-    @file.puts %(</ul>) if @previous_type != ""
-    @file.puts %(<p>&nbsp;</p>)
+    @file.puts %(<section>)
     @file.puts %(<h2>Step definitions in #{dir}/</h2>)
     @previous_type = ""
   end
 
   def end_directory
-    # No-op
+    @file.puts %(</ul>) if @previous_type != ""
+    @file.puts %(</section>)
   end
 
   def start_all
@@ -95,7 +114,7 @@ class HtmlStepOutputter
 
     id = new_id
     @file.puts %(<li>)
-    @file.puts %(  <a href="#" onclick="$('##{id}').slideToggle(); return false;" class="stepdef">#{CGI.escapeHTML(step[:name])}</a>)
+    @file.puts %(  <a href="#" onclick="$('##{id}').slideToggle(); return false;" class="stepdef">#{span_first_word(CGI.escapeHTML(step[:name]))}</a>)
     @file.puts %(  <div id="#{id}" class="extrainfo">)
     # TODO: Add link to source repo or Jenkins workspace
     # <p><a href=".../#{CGI.escapeHTML(step[:filename])}" style="color: #888;">#{CGI.escapeHTML(step[:filename])}:#{step[:line_number]}</a></p>
@@ -114,6 +133,14 @@ class HtmlStepOutputter
   def new_id
     @id_number += 1
     "id#{@id_number}"
+  end
+
+  def span_first_word(str)
+    if (str =~ /^([A-Za-z]+)(.*)/)
+      return "<span class='type'>#{$1}</span>#{$2}"
+    else
+      return str
+    end
   end
 
 end
