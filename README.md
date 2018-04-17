@@ -32,7 +32,7 @@ Supported options:
 
 This will scan the provided directories for step definition files (*.rb) and output the documentation in the specified file.
 
-The tool supports having step definitions in multiple directories.  It will generate a separate section for each directory specified on the command line, and (if multiple directories are provided) a section containing all step definitions.
+The tool supports having step definitions in multiple directories.  It will generate a separate section for each directory specified on the command line.
 
 
 TODO

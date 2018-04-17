@@ -85,12 +85,13 @@ dirs.each do |dir|
   output.end_directory
 end
 
-if dirs.size > 1
-  output.start_all
-  all_steps.sort!(&sorter)
-  all_steps.each { |s| output.step(s) }
-  output.end_all
-end
+# Uncomment to generate a section containing all steps in alphabetical order
+#if dirs.size > 1
+#  output.start_all
+#  all_steps.sort!(&sorter)
+#  all_steps.each { |s| output.step(s) }
+#  output.end_all
+#end
 
 output.footer
 output.close
